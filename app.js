@@ -282,7 +282,7 @@ function renderControls() {
   for (const button of document.querySelectorAll("[data-gender]")) {
     button.setAttribute("aria-pressed", String(button.dataset.gender === state.gender));
   }
-  for (const button of document.querySelectorAll("[data-axis]")) {
+  for (const button of document.querySelectorAll("button[data-axis]")) {
     button.setAttribute("aria-pressed", String(button.dataset.axis === state.axis));
   }
   byId("colorToggle").checked = state.colors;
@@ -308,7 +308,7 @@ for (const button of document.querySelectorAll("[data-control]")) {
 for (const button of document.querySelectorAll("[data-gender]")) {
   button.addEventListener("click", () => { state.gender = button.dataset.gender; update(); });
 }
-for (const button of document.querySelectorAll("[data-axis]")) {
+for (const button of document.querySelectorAll("button[data-axis]")) {
   button.addEventListener("click", () => { state.axis = button.dataset.axis; update(); });
 }
 byId("colorToggle").addEventListener("change", (event) => {
