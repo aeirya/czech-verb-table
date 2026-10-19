@@ -7,6 +7,7 @@ const state = {
   gender: "masculine",
   axis: "verbs",
   colors: true,
+  endingsOnly: false,
 };
 const byId = (id) => document.getElementById(id);
 
@@ -26,6 +27,7 @@ function restore() {
     if (["masculine", "feminine"].includes(saved.gender)) state.gender = saved.gender;
     if (["verbs", "tenses"].includes(saved.axis)) state.axis = saved.axis;
     if (typeof saved.colors === "boolean") state.colors = saved.colors;
+    if (typeof saved.endingsOnly === "boolean") state.endingsOnly = saved.endingsOnly;
   } catch (_) {
     // Invalid or unavailable browser storage should not stop the app.
   }
@@ -35,7 +37,7 @@ function save() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({
       verbs: [...state.verbs], tenses: [...state.tenses], people: [...state.people],
-      gender: state.gender, axis: state.axis, colors: state.colors,
+      gender: state.gender, axis: state.axis, colors: state.colors, endingsOnly: state.endingsOnly,
     }));
   } catch (_) {}
 }
@@ -72,6 +74,7 @@ function renderPresets() {
     button.setAttribute("aria-pressed", String(active));
     button.addEventListener("click", () => {
       state.verbs = new Set(preset.ids);
+      if (preset.id === "aspect") state.tenses = new Set(["present", "future"]);
       update();
     });
     parent.append(button);
@@ -210,13 +213,20 @@ function tenseBlock(verb, tense) {
     const form = document.createElement("span");
     form.className = "form";
     const full = getForm(verb, tense.id, index);
+    const parts = splitForm(verb, tense.id, index, full);
+    if (state.endingsOnly) {
+      const suffix = parts.filter((part) => part.kind === "ending").map((part) => part.value).join("");
+      form.textContent = suffix ? "−" + suffix : "∅";
+      form.setAttribute("aria-label", suffix ? "Ending: " + suffix : "No separate ending");
+    } else {
     form.setAttribute("aria-label", full);
-    for (const part of splitForm(verb, tense.id, index, full)) {
+    for (const part of parts) {
       if (!part.value) continue;
       const span = document.createElement("span");
       span.className = part.kind;
       span.textContent = part.value;
       form.append(span);
+    }
     }
     row.append(label, form);
     section.append(row);
@@ -286,6 +296,7 @@ function renderControls() {
     button.setAttribute("aria-pressed", String(button.dataset.axis === state.axis));
   }
   byId("colorToggle").checked = state.colors;
+  byId("endingsOnly").checked = state.endingsOnly;
   document.body.classList.toggle("no-colors", !state.colors);
 }
 
@@ -315,6 +326,10 @@ byId("colorToggle").addEventListener("change", (event) => {
   state.colors = event.target.checked;
   update();
 });
+byId("endingsOnly").addEventListener("change", (event) => {
+  state.endingsOnly = event.target.checked;
+  update();
+});
 byId("reset").addEventListener("click", () => {
   state.verbs = new Set(DEFAULT_VERBS);
   state.tenses = new Set(["present"]);
@@ -322,6 +337,7 @@ byId("reset").addEventListener("click", () => {
   state.gender = "masculine";
   state.axis = "verbs";
   state.colors = true;
+  state.endingsOnly = false;
   byId("verbSearch").value = "";
   update();
 });
