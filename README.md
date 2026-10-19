@@ -8,9 +8,9 @@ Open **`index.html`** to compare Czech verbs in a configurable table view inspir
 
 - **15 example verbs** covering common `-ám`, `-ím`, and `-uji` conjugation patterns, irregular stems, and perfective verbs.
 - **Select any combination** of individual verbs, present/past/future, and six grammatical persons.
-- **Quick comparison sets** for core patterns, individual endings, irregulars, and the `dělat` / `udělat` aspect contrast.
+- **Quick comparison sets** for core patterns, individual endings, irregulars, and the `dělat` / `udělat` aspect contrast (automatically shows present + future).
 - **Compare by verbs or by tenses** using responsive side-by-side panels.
-- **Highlight stems, endings/irregular parts, and auxiliary words**, or disable color.
+- **Highlight stems, endings/irregular parts, and auxiliary words**, or disable color. Switch to **endings-only** to compare suffixes without stems.
 - Toggle **masculine/feminine past agreement**; masculine animate/mixed vs feminine plural groups are included, but **neuter agreement is not**.
 - Search verbs by Czech infinitive, English gloss, pattern, or aspect (diacritics optional).
 - Preferences are saved locally in your browser.
