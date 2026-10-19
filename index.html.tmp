@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Compare Czech verb conjugations across verbs, tenses and persons, with highlighted endings and aspect-aware tables.">
+  <title>Czech Verb Lab — Conjugation tables</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="verbs.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="masthead">
+    <div class="brand"><span class="logo" aria-hidden="true">Č</span>
+      <div><span class="eyebrow">CZECH VERB LAB</span><h1>See the pattern.</h1>
+        <p>Compare conjugations side by side and spot the endings.</p></div>
+    </div>
+    <a class="practice-link" href="practice.html">Practice with ending blocks <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main class="layout">
+    <aside class="controls" aria-label="Study filters">
+      <div class="control-heading">
+        <h2>Focus</h2>
+        <button id="reset" class="text-button" type="button">Reset view</button>
+      </div>
+      <p class="help">Build your own comparison, or start with a quick set.</p>
+
+      <section class="control-group" aria-labelledby="quick-title">
+        <h3 id="quick-title">Quick comparisons</h3>
+        <div id="presets" class="presets"></div>
+      </section>
+
+      <section class="control-group" aria-labelledby="verbs-title">
+        <div class="group-heading">
+          <h3 id="verbs-title">Verbs <span id="verbCount"></span></h3>
+          <div class="tiny-actions">
+            <button type="button" data-control="verbs" data-action="all">All</button>
+            <button type="button" data-control="verbs" data-action="none">None</button>
+          </div>
+        </div>
+        <label class="search-label" for="verbSearch">Search Czech or English</label>
+        <input id="verbSearch" type="search" autocomplete="off" placeholder="e.g. dělat, read, koupit">
+        <div id="verbOptions" class="verb-options"></div>
+        <p class="microcopy">Searching only narrows this list; it never changes your selection.</p>
+      </section>
+
+      <section class="control-group" aria-labelledby="tenses-title">
+        <div class="group-heading">
+          <h3 id="tenses-title">Tenses</h3>
+          <div class="tiny-actions">
+            <button type="button" data-control="tenses" data-action="all">All</button>
+            <button type="button" data-control="tenses" data-action="none">None</button>
+          </div>
+        </div>
+        <div id="tenseOptions" class="chips"></div>
+      </section>
+
+      <section class="control-group" aria-labelledby="people-title">
+        <div class="group-heading">
+          <h3 id="people-title">Persons</h3>
+          <div class="tiny-actions">
+            <button type="button" data-control="people" data-action="all">All</button>
+            <button type="button" data-control="people" data-action="none">None</button>
+          </div>
+        </div>
+        <div id="personOptions" class="chips"></div>
+      </section>
+
+      <section id="pastGroup" class="control-group" aria-labelledby="past-title">
+        <h3 id="past-title">Past-tense agreement</h3>
+        <div class="switches" role="group" aria-label="Past-tense gender">
+          <button type="button" data-gender="masculine">Masculine</button>
+          <button type="button" data-gender="feminine">Feminine</button>
+        </div>
+        <p class="microcopy">Singular: speaker's gender. Plural: masculine animate/mixed groups vs feminine groups. Neuter agreement is not shown.</p>
+      </section>
+
+      <section class="control-group" aria-labelledby="layout-title">
+        <h3 id="layout-title">Compare by</h3>
+        <div class="switches" role="group" aria-label="Comparison layout">
+          <button type="button" data-axis="verbs">Verbs</button>
+          <button type="button" data-axis="tenses">Tenses</button>
+        </div>
+        <label class="toggle"><input type="checkbox" id="colorToggle" checked> <span>Highlight stems and endings</span></label>
+      </section>
+    </aside>
+
+    <section class="results" aria-label="Conjugation tables">
+      <div class="results-head">
+        <div><p class="eyebrow">YOUR STUDY TABLE</p><h2 id="summary">Conjugation comparison</h2></div>
+        <div id="legend" class="legend" aria-label="Conjugation color key">
+          <span><i class="stem-key"></i>stem</span><span><i class="ending-key"></i>ending / changed form</span>
+        </div>
+      </div>
+      <p class="aspect-hint">Czech verbs have aspect: imperfective verbs normally use <strong>budu + infinitive</strong> for future; perfective verbs use a conjugated non-past form with <strong>future meaning</strong>.</p>
+      <p id="empty" class="empty" hidden>Choose at least one verb, tense and person to build a table.</p>
+      <div id="tables" class="verb-grid" data-axis="verbs"></div>
+    </section>
+  </main>
+  <footer>Made for comparing Czech, not memorizing isolated endings. <a href="practice.html">Try the original ending exercise →</a></footer>
+</body>
+</html>
